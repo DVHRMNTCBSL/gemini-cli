@@ -26,8 +26,9 @@ concurrency:
 jobs:
   deflake_e2e_linux:
     name: 'E2E Test (Linux) - ${{ matrix.sandbox }}'
+    if: (github.event_name == 'workflow_dispatch' || (github.event.pull_request.head.repo.full_name == github.repository))
     runs-on: 'gemini-cli-ubuntu-16-core'
-    if: "github.repository == 'google-gemini/gemini-cli'"
+    if: "(github.repository == 'google-gemini/gemini-cli') && ((github.event_name == 'workflow_dispatch' || (github.event.pull_request.head.repo.full_name == github.repository)))"
     strategy:
       fail-fast: false
       matrix:
@@ -79,8 +80,9 @@ jobs:
 
   deflake_e2e_mac:
     name: 'E2E Test (macOS)'
+    if: (github.event_name == 'workflow_dispatch' || (github.event.pull_request.head.repo.full_name == github.repository))
     runs-on: 'macos-latest-large'
-    if: "github.repository == 'google-gemini/gemini-cli'"
+    if: "(github.repository == 'google-gemini/gemini-cli') && ((github.event_name == 'workflow_dispatch' || (github.event.pull_request.head.repo.full_name == github.repository)))"
     steps:
       - name: 'Checkout'
         uses: 'actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955' # ratchet:actions/checkout@v5
@@ -119,8 +121,9 @@ jobs:
 
   deflake_e2e_windows:
     name: 'Slow E2E - Win'
+    if: (github.event_name == 'workflow_dispatch' || (github.event.pull_request.head.repo.full_name == github.repository))
     runs-on: 'gemini-cli-windows-16-core'
-    if: "github.repository == 'google-gemini/gemini-cli'"
+    if: "(github.repository == 'google-gemini/gemini-cli') && ((github.event_name == 'workflow_dispatch' || (github.event.pull_request.head.repo.full_name == github.repository)))"
     steps:
       - name: 'Checkout'
         uses: 'actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955' # ratchet:actions/checkout@v5
